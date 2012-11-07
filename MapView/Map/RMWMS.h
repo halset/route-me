@@ -41,6 +41,7 @@
     NSString *service;
     NSString *version;
     NSString *exceptions;
+    NSString *extraKeyValues;
     
 }
 
@@ -55,6 +56,7 @@
 @property (retain) NSString *service;
 @property (retain) NSString *version;
 @property (retain) NSString *exceptions;
+@property (retain) NSString *extraKeyValues;
 
 -(NSString *)createGetMapForBbox:(NSString *)bbox size:(CGSize)size;
 -(NSString *)createGetFeatureInfoForBbox:(NSString *)bbox size:(CGSize)size point:(CGPoint)point;
@@ -66,5 +68,7 @@
 -(void)deselect:(NSString *)layerName;
 -(void)setSelectedLayerNames:(NSArray *)layerNames;
 -(NSArray *)selectedLayerNames;
+
+-(void)setExtraKeyValueDictionary:(NSDictionary *)kvd;
 
 @end

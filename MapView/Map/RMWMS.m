@@ -39,6 +39,7 @@
 @synthesize service;
 @synthesize version;
 @synthesize exceptions;
+@synthesize extraKeyValues;
 
 - (id) init
 {
@@ -54,6 +55,7 @@
         [self setService:@"WMS"];
         [self setVersion:@"1.1.1"];
         [self setExceptions:@"application/vnd.ogc.se_inimage"];
+        [self setExtraKeyValues:@""];
     }
     return self;
 }
@@ -82,8 +84,8 @@
 -(NSString *)createBaseGet:(NSString *)bbox size:(CGSize)size
 {
     return [NSString 
-            stringWithFormat:@"%@FORMAT=%@&SERVICE=%@&VERSION=%@&EXCEPTIONS=%@&SRS=%@&BBOX=%@&WIDTH=%.0f&HEIGHT=%.0f&LAYERS=%@&STYLES=%@", 
-            urlPrefix, format, service, version, exceptions, crs, bbox, size.width, size.height, layers, styles];
+            stringWithFormat:@"%@FORMAT=%@&SERVICE=%@&VERSION=%@&EXCEPTIONS=%@&SRS=%@&BBOX=%@&WIDTH=%.0f&HEIGHT=%.0f&LAYERS=%@&STYLES=%@%@", 
+            urlPrefix, format, service, version, exceptions, crs, bbox, size.width, size.height, layers, styles, extraKeyValues];
 }
 
 -(NSString *)createGetMapForBbox:(NSString *)bbox size:(CGSize)size
@@ -105,7 +107,21 @@
 
 -(BOOL)isVisible
 {
-    return ![@"" isEqualToString:layers];
+    return layers.length > 0;
+}
+
+-(void)setExtraKeyValueDictionary:(NSDictionary *)kvd
+{
+    NSMutableString *s = [[NSMutableString alloc] init];
+    for (NSString *key in kvd) {
+        [s appendString:@"&"];
+        [s appendString:key];
+        [s appendString:@"="];
+        NSString *value = [kvd objectForKey:key];
+        [s appendString:[value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    }
+    [self setExtraKeyValues:[NSString stringWithString:s]];
+    [s release];
 }
 
 // [ layerA, layer B ] -> layerA,layerB
@@ -196,6 +212,7 @@
     [self setService:nil];
     [self setVersion:nil];
     [self setExceptions:nil];
+    [self setExtraKeyValues:nil];
     
     [super dealloc];
 }
