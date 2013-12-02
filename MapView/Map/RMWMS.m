@@ -39,6 +39,7 @@
 @synthesize service;
 @synthesize version;
 @synthesize exceptions;
+@synthesize transparent;
 @synthesize extraKeyValues;
 
 - (id) init
@@ -83,9 +84,13 @@
 
 -(NSString *)createBaseGet:(NSString *)bbox size:(CGSize)size
 {
-    return [NSString 
-            stringWithFormat:@"%@FORMAT=%@&SERVICE=%@&VERSION=%@&EXCEPTIONS=%@&SRS=%@&BBOX=%@&WIDTH=%.0f&HEIGHT=%.0f&LAYERS=%@&STYLES=%@%@", 
-            urlPrefix, format, service, version, exceptions, crs, bbox, size.width, size.height, layers, styles, extraKeyValues];
+    NSMutableString *s = [NSMutableString
+            stringWithFormat:@"%@FORMAT=%@&SERVICE=%@&VERSION=%@&EXCEPTIONS=%@&SRS=%@&CRS=%@&BBOX=%@&WIDTH=%.0f&HEIGHT=%.0f&LAYERS=%@&STYLES=%@%@",
+            urlPrefix, format, service, version, exceptions, crs, crs, bbox, size.width, size.height, layers, styles, extraKeyValues];
+    if (transparent) {
+        [s appendFormat:@"&TRANSPARENT=%@", transparent];
+    }
+    return s;
 }
 
 -(NSString *)createGetMapForBbox:(NSString *)bbox size:(CGSize)size
@@ -212,6 +217,7 @@
     [self setService:nil];
     [self setVersion:nil];
     [self setExceptions:nil];
+    [self setTransparent:nil];
     [self setExtraKeyValues:nil];
     
     [super dealloc];

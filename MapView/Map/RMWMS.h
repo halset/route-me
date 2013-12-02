@@ -41,6 +41,7 @@
     NSString *service;
     NSString *version;
     NSString *exceptions;
+    NSString *transparent;
     NSString *extraKeyValues;
     
 }
@@ -56,6 +57,7 @@
 @property (retain) NSString *service;
 @property (retain) NSString *version;
 @property (retain) NSString *exceptions;
+@property (retain) NSString *transparent;
 @property (retain) NSString *extraKeyValues;
 
 -(NSString *)createGetMapForBbox:(NSString *)bbox size:(CGSize)size;
