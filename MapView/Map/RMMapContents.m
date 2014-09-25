@@ -647,8 +647,6 @@
 	[tileSource release];
 	tileSource = newCachedTileSource;
 
-        NSAssert(([tileSource minZoom] - minZoom) <= 1.0, @"Graphics & memory are overly taxed if [contents minZoom] is more than 1.5 smaller than [tileSource minZoom]");
-	
 	[projection release];
 	projection = [[tileSource projection] retain];
 	
@@ -850,8 +848,6 @@
 -(void)setMinZoom:(float)newMinZoom
 {
 	minZoom = newMinZoom;
-
-        NSAssert(!tileSource || (([tileSource minZoom] - minZoom) <= 1.0), @"Graphics & memory are overly taxed if [contents minZoom] is more than 1.5 smaller than [tileSource minZoom]");
 }
 
 -(float) zoom
