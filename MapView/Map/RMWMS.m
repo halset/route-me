@@ -100,9 +100,11 @@
 
 -(NSString *)createGetFeatureInfoForBbox:(NSString *)bbox size:(CGSize)size point:(CGPoint)point
 {
-    return [NSString 
+    // "application/vnd.geo+json" need encoding
+    NSString *encodedInfoFormat = [infoFormat stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return [NSString
             stringWithFormat:@"%@&REQUEST=GetFeatureInfo&INFO_FORMAT=%@&X=%.0f&Y=%.0f&QUERY_LAYERS=%@", 
-            [self createBaseGet:bbox size:size], infoFormat, point.x, point.y, queryLayers];
+            [self createBaseGet:bbox size:size], encodedInfoFormat, point.x, point.y, queryLayers];
 }
 
 -(NSString *)createGetCapabilities
