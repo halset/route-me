@@ -35,7 +35,7 @@
 
 @interface RMTileStreamSource ()
 
-@property (nonatomic, retain) NSDictionary *infoDictionary;
+@property (nonatomic, strong) NSDictionary *infoDictionary;
 
 @end
 
@@ -48,7 +48,7 @@
 - (id)initWithInfo:(NSDictionary *)info
 {
 	if (self = [super init])
-        infoDictionary = [[NSDictionary dictionaryWithDictionary:info] retain];
+        infoDictionary = [NSDictionary dictionaryWithDictionary:info];
     
 	return self;
 }
@@ -58,12 +58,6 @@
     return [self initWithInfo:[NSDictionary dictionaryWithContentsOfURL:referenceURL]];
 }
 
-- (void)dealloc
-{
-    [infoDictionary release];
-    
-    [super dealloc];
-}
 
 #pragma mark 
 

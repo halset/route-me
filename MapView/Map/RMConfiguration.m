@@ -66,27 +66,21 @@ static RMConfiguration* RMConfigurationSharedInstance = nil;
 	RMLog(@"reading configuration from %@", path);	
 	plistData = [NSData dataWithContentsOfFile:path];
 
-	propList = [[NSPropertyListSerialization 
+	propList = [NSPropertyListSerialization 
 					propertyListFromData:plistData
 					mutabilityOption:NSPropertyListImmutable
 					format:&format
-					errorDescription:&error] retain];
+					errorDescription:&error];
 
 	if(!propList)
 	{
 		RMLog(@"problem reading from %@: %@", path, error);
-		[error release];
 	}
 
 	return self;
 }
 	
 
-- (void) dealloc
-{
-	[propList release];
-	[super dealloc];
-}
 
 
 - (NSDictionary*) cacheConfiguration

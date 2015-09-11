@@ -33,11 +33,11 @@
 @class RMProjection;
 
 @interface RMMarkerManager : NSObject {
-	RMMapContents *contents;
+	RMMapContents *__weak contents;
         CGAffineTransform rotationTransform;
 }
 
-@property (assign, readwrite)  RMMapContents *contents;
+@property (weak, readwrite)  RMMapContents *contents;
 
 - (id)initWithContents:(RMMapContents *)mapContents;
 

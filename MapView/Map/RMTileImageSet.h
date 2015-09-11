@@ -46,7 +46,7 @@
 @end
 
 @interface RMTileImageSet : NSObject {
-	IBOutlet id delegate;
+	IBOutlet id __weak delegate;
 	id<RMTileSource> tileSource;
 	NSMutableSet *images;
 	short zoom, tileDepth;
@@ -84,7 +84,7 @@
 -(RMTileImage *) anyTileImage;
 -(void) removeTilesOutsideOf: (RMTileRect)rect;
 
-@property (assign, nonatomic, readwrite) id delegate;
+@property (weak, nonatomic, readwrite) id delegate;
 // tileDepth defaults to zero. if tiles have no alpha, set this higher, 3 or so, to make zooming smoother
 @property (assign, readwrite) short zoom, tileDepth;
 @property (readonly) BOOL fullyLoaded;

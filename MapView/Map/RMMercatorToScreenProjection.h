@@ -40,7 +40,7 @@
 
 	/// The mercator -or-whatever- projection that the map is in.
 	/// This projection move linearly with the screen.
-	RMProjection *projection;
+	RMProjection *__weak projection;
 	
 	/// Bounds of the screen in pixels
 	/// \bug name is "screenBounds" but is probably the view, not the whole screen?
@@ -88,7 +88,7 @@
 @property (assign, readwrite) float metersPerPixel;
 
 @property (assign, readwrite) RMProjectedPoint origin;
-@property (nonatomic,readonly) RMProjection *projection;
+@property (weak, nonatomic,readonly) RMProjection *projection;
 -(void)deepCopy:(RMMercatorToScreenProjection *)copy;
 
 @end

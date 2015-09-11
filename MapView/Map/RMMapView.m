@@ -35,6 +35,7 @@
 #import "RMMarker.h"
 #import "RMProjection.h"
 #import "RMMarkerManager.h"
+#import "RMLayerCollection.h"
 
 @interface RMMapView (PrivateMethods)
 // methods for post-touch deceleration, ala UIScrollView
@@ -124,7 +125,6 @@
     if (!_contentsIsSet) {
 		RMMapContents *newContents = [[RMMapContents alloc] initWithView:self screenScale:screenScale];
 		self.contents = newContents;
-		[newContents release];
 		_contentsIsSet = YES;
 	}
 	return contents; 
@@ -132,8 +132,7 @@
 - (void)setContents:(RMMapContents *)theContents
 {
     if (contents != theContents) {
-        [contents release];
-        contents = [theContents retain];
+        contents = theContents;
 		_contentsIsSet = YES;
 		[self performInitialSetup];
     }
@@ -143,7 +142,6 @@
 {
 	LogMethod();
 	self.contents = nil;
-	[super dealloc];
 }
 
 -(void) drawRect: (CGRect) rect

@@ -54,7 +54,7 @@
 // http://127.0.0.1:8080/openbd/custom/server/CFML/index.cfm?
 // http://localhost:8080/openbd/SSCustomServer/server/JSP/index.jsp?
 // http://localhost/server/PHP/index.php?
-@property (nonatomic, retain) NSString *customServerURL;
+@property (nonatomic, strong) NSString *customServerURL;
 
 // LoginID and password used to access a MapStream
 //
@@ -63,8 +63,8 @@
 // gRtXbm79CODFq for the password
 // If you don't want to release your loginID in your app's binary, consider
 // using a proxy server as mentioned above
-@property (nonatomic, retain) NSString *loginID;
-@property (nonatomic, retain) NSString *password;
+@property (nonatomic, strong) NSString *loginID;
+@property (nonatomic, strong) NSString *password;
 
 - (id)initWithLoginID:(NSString *)newLoginID password:(NSString *)newPassword;
 - (id)initWithCustomServerURL:(NSString *)newCustomServerURL;

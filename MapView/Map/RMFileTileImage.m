@@ -39,7 +39,6 @@
 
         [self updateImageUsingImage:image];
 
-        [image release];
 
 	return self;
 }

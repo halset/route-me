@@ -62,8 +62,6 @@
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:RMSuspendNetworkOperations object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:RMResumeNetworkOperations object:nil];
-	[tileProjection release];
-	[super dealloc];
 }
 
 -(int)tileSideLength
@@ -143,7 +141,7 @@
 
 -(id<RMMercatorToTileProjection>) mercatorToTileProjection
 {
-	return [[tileProjection retain] autorelease];
+	return tileProjection;
 }
 
 -(RMProjection*) projection

@@ -28,8 +28,8 @@
 #import "RMURLConnectionOperation.h"
 
 @interface RMURLConnectionOperation () <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
-@property(retain) NSURLConnection *connection;
-@property(retain) NSPort* port;
+@property(strong) NSURLConnection *connection;
+@property(strong) NSPort* port;
 
 @property BOOL executing;
 @property BOOL finished;
@@ -62,12 +62,9 @@
 - (void)dealloc {
     
     [_connection cancel];
-    [_connection release];
     
     [[NSRunLoop mainRunLoop] removePort:self.port forMode:NSDefaultRunLoopMode];
-    [_port release];
     
-    [super dealloc];
 }
 
 #pragma mark - overridden NSOperation methods

@@ -44,7 +44,7 @@
 	//       is called. Be careful using any of methods - they might return
 	//       strange data.
 
-	layer = [[CAScrollLayer layer] retain];
+	layer = [CAScrollLayer layer];
 	layer.anchorPoint = CGPointZero;
 	layer.masksToBounds = YES;
 	// If the frame is set incorrectly here, it will be fixed when setRenderer is called in RMMapContents
@@ -67,9 +67,6 @@
         [image layer].delegate = nil;
     }
     layer.delegate = nil;
-	[tiles release];
-	[layer release];
-	[super dealloc];
 }
 
 /// \bug this is a no-op

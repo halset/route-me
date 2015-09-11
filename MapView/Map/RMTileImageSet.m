@@ -60,8 +60,6 @@
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[self removeAllTiles];
-	[images release];
-	[super dealloc];
 }
 
 -(void) removeTile: (RMTile) tile

@@ -52,12 +52,12 @@
 	CGMutablePathRef circlePath;
 }
 
-@property (nonatomic, retain) CAShapeLayer* shapeLayer;
+@property (nonatomic, strong) CAShapeLayer* shapeLayer;
 @property (nonatomic, assign) RMProjectedPoint projectedLocation;
 @property (assign) BOOL enableDragging;
 @property (assign) BOOL enableRotation;
-@property (nonatomic, retain) UIColor* lineColor;
-@property (nonatomic, retain) UIColor* fillColor;
+@property (nonatomic, strong) UIColor* lineColor;
+@property (nonatomic, strong) UIColor* fillColor;
 @property (nonatomic, assign) CGFloat radiusInMeters;
 @property (nonatomic, assign) CGFloat lineWidthInPixels;
 

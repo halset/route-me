@@ -48,7 +48,7 @@ typedef NSImage UIImage;
 	CGRect screenLocation;
 	
 	/// Used by cache
-	NSDate *lastUsedTime;
+	NSDate *__weak lastUsedTime;
 	
 	/// \bug placing the "layer" on the RMTileImage implicitly assumes that a particular RMTileImage will be used in only 
 	/// one UIView. Might see some interesting crashes if you have two RMMapViews using the same tile source.
@@ -87,6 +87,6 @@ typedef NSImage UIImage;
 @property (readwrite, assign) CGRect screenLocation;
 @property (readonly, assign) RMTile tile;
 @property (readonly) CALayer *layer;
-@property (readonly) NSDate *lastUsedTime;
+@property (weak, readonly) NSDate *lastUsedTime;
 
 @end

@@ -82,7 +82,7 @@ typedef enum {
 - (RMTileStreamLayerType)layerType;
 - (BOOL)coversFullWorld;
 
-@property (nonatomic, readonly, retain) NSDictionary *infoDictionary;
+@property (nonatomic, readonly, strong) NSDictionary *infoDictionary;
 
 @end
 

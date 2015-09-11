@@ -46,19 +46,19 @@
     
 }
 
-@property (retain) NSString *urlPrefix;
-@property (retain) NSString *layers;
-@property (retain) NSString *styles;
-@property (retain) NSString *queryLayers;
-@property (retain) NSString *crs;
+@property (strong) NSString *urlPrefix;
+@property (strong) NSString *layers;
+@property (strong) NSString *styles;
+@property (strong) NSString *queryLayers;
+@property (strong) NSString *crs;
 @property BOOL queryable;
-@property (retain) NSString *infoFormat;
-@property (retain) NSString *format;
-@property (retain) NSString *service;
-@property (retain) NSString *version;
-@property (retain) NSString *exceptions;
-@property (retain) NSString *transparent;
-@property (retain) NSString *extraKeyValues;
+@property (strong) NSString *infoFormat;
+@property (strong) NSString *format;
+@property (strong) NSString *service;
+@property (strong) NSString *version;
+@property (strong) NSString *exceptions;
+@property (strong) NSString *transparent;
+@property (strong) NSString *extraKeyValues;
 
 -(NSString *)createGetMapForBbox:(NSString *)bbox size:(CGSize)size;
 -(NSString *)createGetFeatureInfoForBbox:(NSString *)bbox size:(CGSize)size point:(CGPoint)point;

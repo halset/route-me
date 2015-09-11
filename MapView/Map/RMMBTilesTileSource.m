@@ -51,7 +51,7 @@
                                                                  maxZoom:kMBTilesDefaultMaxTileZoom 
                                                                  minZoom:kMBTilesDefaultMinTileZoom];
 	
-    db = [[FMDatabase databaseWithPath:[tileSetURL relativePath]] retain];
+    db = [FMDatabase databaseWithPath:[tileSetURL relativePath]];
     
     if ( ! [db open])
         return nil;
@@ -61,12 +61,9 @@
 
 - (void)dealloc
 {
-	[tileProjection release];
     
     [db close];
-    [db release];
     
-	[super dealloc];
 }
 
 - (int)tileSideLength
@@ -131,7 +128,7 @@
 
 - (id <RMMercatorToTileProjection>)mercatorToTileProjection
 {
-	return [[tileProjection retain] autorelease];
+	return tileProjection;
 }
 
 - (RMProjection *)projection

@@ -34,32 +34,25 @@
 {
 	if ([_source isKindOfClass:[RMCachedTileSource class]])
 	{
-		[self release];
-		return [_source retain];
+		return _source;
 	}
 	
 	if (![super init])
 		return nil;
 	
-	tileSource = [_source retain];
+	tileSource = _source;
 	
 	cache = [[RMTileCache alloc] initWithTileSource:tileSource];
 	
 	return self;
 }
 
-- (void) dealloc
-{
-	[tileSource release];
-	[cache release];
-	[super dealloc];
-}
 
 + (RMCachedTileSource*) cachedTileSourceWithSource: (id<RMTileSource>) source
 {
 	// Doing this fixes a strange build warning...
 	id theSource = source;
-	return [[[RMCachedTileSource alloc] initWithSource:theSource] autorelease];
+	return [[RMCachedTileSource alloc] initWithSource:theSource];
 }
 
 -(RMTileImage *) tileImage: (RMTile) tile

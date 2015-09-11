@@ -83,14 +83,9 @@
 }
 
 - (void)dealloc {
-	[shapeLayer release];
-	shapeLayer = nil;
 	CGPathRelease(circlePath);
-	[lineColor release];
 	lineColor = nil;
-	[fillColor release];
 	fillColor = nil;
-	[super dealloc];
 }
 
 #pragma mark -
@@ -136,16 +131,14 @@
 
 - (void)setLineColor:(UIColor*)newLineColor {
 	if (lineColor != newLineColor) {
-		[lineColor release];
-		lineColor = [newLineColor retain];
+		lineColor = newLineColor;
 		[self updateCirclePath];
 	}
 }
 
 - (void)setFillColor:(UIColor*)newFillColor {
 	if (fillColor != newFillColor) {
-		[fillColor release];
-		fillColor = [newFillColor retain];
+		fillColor = newFillColor;
 		[self updateCirclePath];
 	}
 }

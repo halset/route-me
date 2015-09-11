@@ -47,7 +47,7 @@ static NSString *BORDERS[4][2] =
 {	
 	BOOL is_even = TRUE;
 	int bit=0, ch=0;
-	NSMutableString *geohash = [[[NSMutableString string] retain] autorelease];
+	NSMutableString *geohash = [NSMutableString string];
 	
 	CLLocationCoordinate2D loc1 = { -kMaxLat, -kMaxLong };
 	CLLocationCoordinate2D loc2 = { kMaxLat, kMaxLong };
@@ -133,7 +133,7 @@ static NSString *BORDERS[4][2] =
 
 + (NSArray *) withNeighbors: (NSString *)locHashcode 
 {	
-	NSMutableArray *neighborsHash = [[[NSMutableArray arrayWithCapacity: 9] retain] autorelease];
+	NSMutableArray *neighborsHash = [NSMutableArray arrayWithCapacity: 9];
 	
 	NSString *neighborHash, *neighborHashRight, *neighborHashLeft;
 	

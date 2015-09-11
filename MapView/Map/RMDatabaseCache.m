@@ -85,10 +85,7 @@
 -(void) dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[databasePath release];
-	[dao release];
 	
-	[super dealloc];
 }
 
 -(void) setPurgeStrategy: (RMCachePurgeStrategy) theStrategy
@@ -127,9 +124,9 @@
 				[dao purgeTiles: MAX(minimalPurge, 1+tilesInDb-capacity)];
 			}
 		}
-        NSDate *lastUsedTime = [[image lastUsedTime] retain];
+        NSDate *lastUsedTime = [image lastUsedTime];
 		[dao addData:data LastUsed: lastUsedTime ForTile:RMTileKey([image tile])];
-        [lastUsedTime release]; lastUsedTime = nil;
+         lastUsedTime = nil;
 	}
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self

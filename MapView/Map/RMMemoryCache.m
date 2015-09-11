@@ -61,8 +61,6 @@
 {
 	LogMethod();
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[cache release];
-	[super dealloc];
 }
 
 -(void) didReceiveMemoryWarning

@@ -45,16 +45,11 @@
 	if (![super init])
 		return nil;
 	screenBounds = aScreenBounds;
-	projection = [aProjection retain];
+	projection = aProjection;
 	metersPerPixel = 1;
 	return self;
 }
 
-- (void) dealloc
-{
-	[projection release];
-	[super dealloc];
-}
 
 // Deltas in screen coordinates.
 - (RMProjectedPoint)movePoint: (RMProjectedPoint)aPoint by:(CGSize) delta

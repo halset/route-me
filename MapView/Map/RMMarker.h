@@ -54,10 +54,10 @@
 @property (assign) BOOL enableDragging;
 @property (assign) BOOL enableRotation;
 
-@property (nonatomic, retain) NSObject* data;
-@property (nonatomic, retain) UIView* label;
-@property(nonatomic,retain) UIColor *textForegroundColor;
-@property(nonatomic,retain) UIColor *textBackgroundColor;
+@property (nonatomic, strong) NSObject* data;
+@property (nonatomic, strong) UIView* label;
+@property(nonatomic,strong) UIColor *textForegroundColor;
+@property(nonatomic,strong) UIColor *textBackgroundColor;
 
 /// the font used for labels when another font is not explicitly requested; currently [UIFont systemFontOfSize:15]
 + (UIFont *)defaultFont;

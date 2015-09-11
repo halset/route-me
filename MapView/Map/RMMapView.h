@@ -157,18 +157,18 @@ typedef struct {
 
 /// Any other functionality you need to manipulate the map you can access through this
 /// property. The RMMapContents class holds the actual map bits.
-@property (nonatomic, retain) RMMapContents *contents;
+@property (nonatomic, strong) RMMapContents *contents;
 
 // View properties
 @property (readwrite) BOOL enableDragging;
 @property (readwrite) BOOL enableZoom;
 @property (readwrite) BOOL enableRotate;
 
-@property (nonatomic, retain, readonly) RMMarkerManager *markerManager;
+@property (nonatomic, strong, readonly) RMMarkerManager *markerManager;
 
 // do not retain the delegate so you can let the corresponding controller implement the
 // delegate without circular references
-@property (assign) id<RMMapViewDelegate> delegate;
+@property (weak) id<RMMapViewDelegate> delegate;
 @property (readwrite) float decelerationFactor;
 @property (readwrite) BOOL deceleration;
 

@@ -135,23 +135,23 @@ enum {
 
 @property (nonatomic, readonly) float screenScale;
 
-@property (readonly)  RMTileImageSet *imagesOnScreen;
-@property (readonly)  RMTileLoader *tileLoader;
+@property (weak, readonly)  RMTileImageSet *imagesOnScreen;
+@property (weak, readonly)  RMTileLoader *tileLoader;
 
-@property (readonly)  RMProjection *projection;
-@property (readonly)  id<RMMercatorToTileProjection> mercatorToTileProjection;
-@property (readonly)  RMMercatorToScreenProjection *mercatorToScreenProjection;
+@property (weak, readonly)  RMProjection *projection;
+@property (weak, readonly)  id<RMMercatorToTileProjection> mercatorToTileProjection;
+@property (weak, readonly)  RMMercatorToScreenProjection *mercatorToScreenProjection;
 
-@property (retain, readwrite) id<RMTileSource> tileSource;
-@property (retain, readwrite) RMMapRenderer *renderer;
+@property (strong, readwrite) id<RMTileSource> tileSource;
+@property (strong, readwrite) RMMapRenderer *renderer;
 
-@property (readonly)  CALayer *layer;
+@property (weak, readonly)  CALayer *layer;
 
-@property (retain, readwrite) RMMapLayer *background;
-@property (retain, readwrite) RMLayerCollection *overlay;
-@property (retain, readonly)  RMMarkerManager *markerManager;
+@property (strong, readwrite) RMMapLayer *background;
+@property (strong, readwrite) RMLayerCollection *overlay;
+@property (strong, readonly)  RMMarkerManager *markerManager;
 /// \bug probably shouldn't be retaining this delegate
-@property (nonatomic, retain) id<RMTilesUpdateDelegate> tilesUpdateDelegate;
+@property (nonatomic, strong) id<RMTilesUpdateDelegate> tilesUpdateDelegate;
 @property (readwrite) NSUInteger boundingMask;
 /// The denominator in a cartographic scale like 1/24000, 1/50000, 1/2000000.
 @property (readonly)double scaleDenominator;

@@ -148,11 +148,6 @@
 	return self;
 }
 
--(void) dealloc {
-	[db release];
-	[tileProjection release];
-	[super dealloc];
-}
 
 -(int)tileSideLength {
 	return tileSideLength;
@@ -213,7 +208,7 @@
 }
 
 -(id<RMMercatorToTileProjection>) mercatorToTileProjection {
-	return [[tileProjection retain] autorelease];
+	return tileProjection;
 }
 
 -(RMProjection*) projection {

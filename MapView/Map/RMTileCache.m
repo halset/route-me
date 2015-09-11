@@ -80,7 +80,6 @@
 
 			if (newCache) {
 				[caches addObject: newCache];
-				[newCache release];
 			} else {
 				RMLog(@"failed to create cache of type %@", type);
 			}
@@ -93,11 +92,6 @@
 	return self;
 }
 
--(void) dealloc
-{
-	[caches release];
-	[super dealloc];
-}
 
 -(void)addCache: (id<RMTileCache>)cache
 {

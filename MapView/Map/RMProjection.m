@@ -50,7 +50,6 @@ NS_INLINE RMLatLong RMPixelPointAsLatLong(RMProjectedPoint xypoint) {
 	if (internalProjection == NULL)
 	{
 		RMLog(@"Unhandled error creating projection. String is %@", params);
-		[self release];
 		return nil;
 	}
 	
@@ -78,7 +77,6 @@ NS_INLINE RMLatLong RMPixelPointAsLatLong(RMProjectedPoint xypoint) {
 	if (internalProjection)
 		pj_free(internalProjection);
 	
-	[super dealloc];
 }
 
 - (RMProjectedPoint) wrapPointHorizontally: (RMProjectedPoint) aPoint

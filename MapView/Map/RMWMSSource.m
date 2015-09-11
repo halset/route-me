@@ -87,13 +87,5 @@
     return meters; 
 } 
 
-- (void) dealloc
-{
-    [self setName:nil];
-    [self setUniqueTilecacheKey:nil];
-    [self setWms:nil];
-    
-    [super dealloc];
-}
 
 @end

@@ -73,8 +73,7 @@
         }
     }
     
-    [urlPrefix release];
-    urlPrefix = [newUrlPrefix retain];
+    urlPrefix = newUrlPrefix;
 }
 
 -(NSString *)urlPrefix
@@ -128,7 +127,6 @@
         [s appendString:[value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     }
     [self setExtraKeyValues:[NSString stringWithString:s]];
-    [s release];
 }
 
 // [ layerA, layer B ] -> layerA,layerB
@@ -210,19 +208,7 @@
 - (void) dealloc
 {
     [self setUrlPrefix:nil];
-    [self setLayers:nil];
-    [self setStyles:nil];
-    [self setQueryLayers:nil];
-    [self setCrs:nil];
-    [self setInfoFormat:nil];
-    [self setFormat:nil];
-    [self setService:nil];
-    [self setVersion:nil];
-    [self setExceptions:nil];
-    [self setTransparent:nil];
-    [self setExtraKeyValues:nil];
     
-    [super dealloc];
 }
 
 @end

@@ -160,13 +160,13 @@
 
 	mercatorToScreenProjection = [[RMMercatorToScreenProjection alloc] initFromProjection:[newTilesource projection] ToScreenBounds:[newView bounds]];
 	
-	layer = [[newView layer] retain];
+	layer = [newView layer];
 
         [self setMinZoom:minZoomLevel];
         [self setMaxZoom:maxZoomLevel];
 
 	[self setTileSource:newTilesource];
-	[self setRenderer: [[[RMCoreAnimationRenderer alloc] initWithContent:self] autorelease]];
+	[self setRenderer: [[RMCoreAnimationRenderer alloc] initWithContent:self]];
 	
 	imagesOnScreen = [[RMTileImageSet alloc] initWithDelegate:renderer];
 	[imagesOnScreen setTileSource:tileSource];
@@ -183,11 +183,9 @@
 	/// \bug TODO: Make a nice background class
 	RMMapLayer *theBackground = [[RMMapLayer alloc] init];
 	[self setBackground:theBackground];
-	[theBackground release];
 	
 	RMLayerCollection *theOverlay = [[RMLayerCollection alloc] initForContents:self];
 	[self setOverlay:theOverlay];
-	[theOverlay release];
 	
 	markerManager = [[RMMarkerManager alloc] initWithContents:self];
 	
@@ -219,8 +217,6 @@
 	RMMapRenderer *_renderer = [[RMCoreAnimationRenderer alloc] initWithContent:self];
 	
 	id mapContents = [self initForView:view WithTileSource:_tileSource WithRenderer:_renderer LookingAt:latlong];
-	[_tileSource release];
-	[_renderer release];
 	
 	return mapContents;
 }
@@ -248,7 +244,7 @@
 	imagesOnScreen = nil;
 	tileLoader = nil;
 	
-	layer = [[view layer] retain];
+	layer = [view layer];
 	
 	[self setTileSource:_tileSource];
 	[self setRenderer:_renderer];
@@ -270,11 +266,9 @@
 	/// \bug TODO: Make a nice background class
 	RMMapLayer *theBackground = [[RMMapLayer alloc] init];
 	[self setBackground:theBackground];
-	[theBackground release];
 	
 	RMLayerCollection *theOverlay = [[RMLayerCollection alloc] initForContents:self];
 	[self setOverlay:theOverlay];
-	[theOverlay release];
 	
 	markerManager = [[RMMarkerManager alloc] initWithContents:self];
 	
@@ -308,17 +302,8 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[imagesOnScreen cancelLoading];
 	[self setRenderer:nil];
-	[imagesOnScreen release];
-	[tileLoader release];
-	[projection release];
-	[mercatorToTileProjection release];
-	[mercatorToScreenProjection release];
-	[tileSource release];
 	[self setOverlay:nil];
 	[self setBackground:nil];
-	[layer release];
-	[markerManager release];
-	[super dealloc];
 }
 
 - (void)handleMemoryWarningNotification:(NSNotification *)notification
@@ -555,7 +540,7 @@
 	double zoomIncr = [[[timer userInfo] objectForKey:@"zoomIncr"] doubleValue];
 	double targetZoom = [[[timer userInfo] objectForKey:@"targetZoom"] doubleValue];
     
-	NSDictionary *userInfo = [[[timer userInfo] retain] autorelease];
+	NSDictionary *userInfo = [timer userInfo];
 	id<RMMapContentsAnimationCallback> callback = [userInfo objectForKey:@"callback"];
 
 	if ((zoomIncr > 0 && [self zoom] >= targetZoom-1.0e-6) || (zoomIncr < 0 && [self zoom] <= targetZoom+1.0e-6))
@@ -643,15 +628,12 @@
 	
 	RMCachedTileSource *newCachedTileSource = [RMCachedTileSource cachedTileSourceWithSource:newTileSource];
 
-	newCachedTileSource = [newCachedTileSource retain];
-	[tileSource release];
+	newCachedTileSource = newCachedTileSource;
 	tileSource = newCachedTileSource;
 
-	[projection release];
-	projection = [[tileSource projection] retain];
+	projection = [tileSource projection];
 	
-	[mercatorToTileProjection release];
-	mercatorToTileProjection = [[tileSource mercatorToTileProjection] retain];
+	mercatorToTileProjection = [tileSource mercatorToTileProjection];
 
 	[imagesOnScreen setTileSource:tileSource];
 
@@ -661,7 +643,7 @@
 
 - (id<RMTileSource>) tileSource
 {
-	return [[tileSource retain] autorelease];
+	return tileSource;
 }
 
 - (void) setRenderer: (RMMapRenderer*) newRenderer
@@ -672,9 +654,8 @@
 	[imagesOnScreen setDelegate:newRenderer];
 	
 	[[renderer layer] removeFromSuperlayer];
-	[renderer release];
 	
-	renderer = [newRenderer retain];
+	renderer = newRenderer;
 	
 	if (renderer == nil)
 		return;
@@ -693,7 +674,7 @@
 
 - (RMMapRenderer *)renderer
 {
-	return [[renderer retain] autorelease];
+	return renderer;
 }
 
 - (void) setBackground: (RMMapLayer*) aLayer
@@ -702,11 +683,10 @@
 	
 	if (background != nil)
 	{
-		[background release];
 		[background removeFromSuperlayer];		
 	}
 	
-	background = [aLayer retain];
+	background = aLayer;
 	
 	if (background == nil)
 		return;
@@ -723,7 +703,7 @@
 
 - (RMMapLayer *)background
 {
-	return [[background retain] autorelease];
+	return background;
 }
 
 - (void) setOverlay: (RMLayerCollection*) aLayer
@@ -732,11 +712,10 @@
 	
 	if (overlay != nil)
 	{
-		[overlay release];
 		[overlay removeFromSuperlayer];		
 	}
 	
-	overlay = [aLayer retain];
+	overlay = aLayer;
 	
 	if (overlay == nil)
 		return;
@@ -762,7 +741,7 @@
 
 - (RMLayerCollection *)overlay
 {
-	return [[overlay retain] autorelease];
+	return overlay;
 }
 
 - (CLLocationCoordinate2D) mapCenter
@@ -868,30 +847,30 @@
 
 -(RMTileImageSet*) imagesOnScreen
 {
-	return [[imagesOnScreen retain] autorelease];
+	return imagesOnScreen;
 }
 
 -(RMTileLoader*) tileLoader
 {
-	return [[tileLoader retain] autorelease];
+	return tileLoader;
 }
 
 -(RMProjection*) projection
 {
-	return [[projection retain] autorelease];
+	return projection;
 }
 -(id<RMMercatorToTileProjection>) mercatorToTileProjection
 {
-	return [[mercatorToTileProjection retain] autorelease];
+	return mercatorToTileProjection;
 }
 -(RMMercatorToScreenProjection*) mercatorToScreenProjection
 {
-	return [[mercatorToScreenProjection retain] autorelease];
+	return mercatorToScreenProjection;
 }
 
 - (CALayer *)layer
 {
-	return [[layer retain] autorelease];
+	return layer;
 }
 
 static BOOL _performExpensiveOperations = YES;

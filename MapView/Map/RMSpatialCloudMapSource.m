@@ -47,8 +47,8 @@
 - (id)initWithLoginID:(NSString *)newLoginID password:(NSString *)newPassword {
 	self = [self init];
 	if (self) {
-		loginID = [newLoginID retain];
-		password = [newPassword retain];
+		loginID = newLoginID;
+		password = newPassword;
 	}
 	return self;
 }
@@ -56,17 +56,11 @@
 - (id)initWithCustomServerURL:(NSString *)newCustomServerURL {
 	self = [self init];
 	if (self) {
-		customServerURL = [newCustomServerURL retain];
+		customServerURL = newCustomServerURL;
 	}
 	return self;
 }
 
-- (void)dealloc {
-	[customServerURL release];
-	[loginID release];
-	[password release];
-	[super dealloc];
-}
 
 - (NSString *)md5HexDigest:(NSString *)stringToHash {
 	const char *cStringToHash = [stringToHash UTF8String];

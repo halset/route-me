@@ -78,15 +78,12 @@ static NSOperationQueue *_queue = nil;
 {
 	[self cancelLoading];
 	
-    if ( lastError ) [lastError release]; lastError = nil;
+     lastError = nil;
 	
-    [data release];
     data = nil;
     
-	[url release];
 	url = nil;
 	
-	[super dealloc];
 }
 
 - (void) requestTile
@@ -97,7 +94,6 @@ static NSOperationQueue *_queue = nil;
 		//RMLog(@"Refetching: %@: %d", url, retries);
 		
         [connectionOp cancel];
-		[connectionOp release];
 		connectionOp = nil;
 
 		if(retries == 0) // No more retries
@@ -106,7 +102,7 @@ static NSOperationQueue *_queue = nil;
 			[[NSNotificationCenter defaultCenter] postNotificationName:RMTileRetrieved object:self];
 
 			[[NSNotificationCenter defaultCenter] postNotificationName:RMTileError object:self userInfo:[NSDictionary dictionaryWithObject:lastError forKey:RMWebTileImageNotificationErrorKey]];
-            [lastError autorelease]; lastError = nil;
+            lastError = nil;
 
 			return;
 		}
@@ -143,10 +139,9 @@ static NSOperationQueue *_queue = nil;
 	[[NSNotificationCenter defaultCenter] postNotificationName:RMTileRetrieved object:self];
 	
     [connectionOp cancel];	
-	[connectionOp release];
 	connectionOp = nil;
     
-    if (lastError) [lastError release]; lastError = nil;
+     lastError = nil;
     
 	[super cancelLoading];
 }
@@ -198,8 +193,7 @@ static NSOperationQueue *_queue = nil;
                                                    [NSString stringWithFormat:NSLocalizedString(@"The server returned error code %d", @""), statusCode], NSLocalizedDescriptionKey, nil]];
         
 		if (retry) {
-            if ( lastError ) [lastError release];
-            lastError = [error retain];
+            lastError = error;
 			[self requestTile];
 		} else {
 			[[NSNotificationCenter defaultCenter] postNotificationName:RMTileError object:self userInfo:[NSDictionary dictionaryWithObject:error forKey:RMWebTileImageNotificationErrorKey]];
@@ -234,8 +228,7 @@ static NSOperationQueue *_queue = nil;
 	
 	if(retry)
 	{
-        if (lastError) [lastError release];
-        lastError = [error retain];
+        lastError = error;
         
 		[self requestTile];
 	}
@@ -251,34 +244,29 @@ static NSOperationQueue *_queue = nil;
     if ([data length] == 0) {
         //RMLog(@"connectionDidFinishLoading %@ data size %d", _connection, [data length]);
         
-        if ( lastError ) [lastError release];
-        lastError = [[NSError errorWithDomain:RMWebTileImageErrorDomain 
+        lastError = [NSError errorWithDomain:RMWebTileImageErrorDomain 
                                          code:RMWebTileImageErrorZeroLengthResponse
                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                               NSLocalizedString(@"The server returned a zero-length response", @""), NSLocalizedDescriptionKey, nil]] retain];
+                                               NSLocalizedString(@"The server returned a zero-length response", @""), NSLocalizedDescriptionKey, nil]];
 		[self requestTile];
 	} else {
 		if ( ![self updateImageUsingData:data] ) {
-            if ( lastError ) [lastError release];
-            lastError = [[NSError errorWithDomain:RMWebTileImageErrorDomain 
+            lastError = [NSError errorWithDomain:RMWebTileImageErrorDomain 
                                              code:RMWebTileImageErrorUnexpectedHTTPResponse
                                          userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                   NSLocalizedString(@"The server returned an invalid response", @""), NSLocalizedDescriptionKey, nil]] retain];
+                                                   NSLocalizedString(@"The server returned an invalid response", @""), NSLocalizedDescriptionKey, nil]];
             [self requestTile];
             return;
         }
 		
-        [data release];
 		data = nil;
         
-		[url release];
 		url = nil;
         
         [connectionOp cancel];
-		[connectionOp release];
 		connectionOp = nil;
         
-		if (lastError) [lastError release]; lastError = nil;
+		 lastError = nil;
         
 		[[NSNotificationCenter defaultCenter] postNotificationName:RMTileRetrieved object:self];
 	}

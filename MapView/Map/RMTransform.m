@@ -36,28 +36,20 @@
 	if (![super init])
 		return nil;
 	
-	source = [_source retain];
-	destination = [_dest retain];
+	source = _source;
+	destination = _dest;
 	
 	is_source_latlong = pj_is_latlong(source.internalProjection);
 	is_dest_latlong = pj_is_latlong(destination.internalProjection);
 	
 	if (source == nil || destination == nil)
 	{
-		[self release];
 		return nil;
 	}
 	
 	return self;
 }
 
--(void) dealloc
-{
-	[source release];
-	[destination release];
-	
-	[super dealloc];
-}
 
 -(CLLocationCoordinate2D) projectForward: (CLLocationCoordinate2D)point AtZoom: (double)z
 {
